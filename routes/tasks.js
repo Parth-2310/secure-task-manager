@@ -1,0 +1,40 @@
+const express = require('express');
+const router = express.Router();
+const Task = require('../models/Task');
+const authMiddleware = require('../middleware/auth');
+
+router.post('/', authMiddleware, async (req, res) => {
+  try {
+    const { title, description, completed } = req.body;
+    if (!title || typeof title !== 'string' || title.trim().length === 0) {
+      return res.status(400).json({ error: 'Title required' });
+    }
+    if (title.length > 100) {
+      return res.status(400).json({ error: 'Title too long' });
+    }
+ 
+    const task = new Task({
+      title: title.trim(),
+      description: description ? description.trim() : '',
+      completed: completed || false,
+      user: req.user.id
+    });
+    await task.save();
+    res.status(201).json(task);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+router.get('/',authMiddleware, async (req, res) => {
+  try {
+    const tasks = await Task.find({ user: req.user.id }).sort({ createdAt: -1 });
+    res.json(tasks);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+module.exports = router;
