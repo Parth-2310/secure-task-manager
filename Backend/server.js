@@ -10,7 +10,6 @@ const cookieParser = require('cookie-parser');
 const app = express();
 
 app.use(helmet());
-app.use(cors({ origin: ['http://localhost:5173','http://127.0.0.1:5173'], credentials: true }));
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());  
 app.use(rateLimit({
@@ -21,8 +20,9 @@ app.use(rateLimit({
 app.use(morgan('dev'));
 
 const allowedOrigins = [
-  'http://localhost:5173', 
-  'https://secure-task-manager-axoqf09g1-aditi-gupta-s-projects.vercel.app' 
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'https://secure-task-manager-axoqf09g1-aditi-gupta-s-projects.vercel.app'
 ];
 
 app.use(cors({
