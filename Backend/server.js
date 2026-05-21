@@ -20,6 +20,22 @@ app.use(rateLimit({
 }));
 app.use(morgan('dev'));
 
+const allowedOrigins = [
+  'http://localhost:5173', 
+  'https://secure-task-manager-axoqf09g1-aditi-gupta-s-projects.vercel.app' 
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
