@@ -22,7 +22,7 @@ app.use(morgan('dev'));
 const allowedOrigins = [
   'http://localhost:5173',
   'http://127.0.0.1:5173',
-  'https://secure-task-manager-axoqf09g1-aditi-gupta-s-projects.vercel.app'
+  'https://secure-task-manager-7njd2ukf4-aditi-gupta-s-projects.vercel.app'
 ];
 
 app.use(cors({
