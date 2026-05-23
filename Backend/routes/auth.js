@@ -7,7 +7,7 @@ const authMiddleware = require('../middleware/auth');
 // POST /api/auth/register
 router.post('/register', async (req, res) => {
   try {
-    const { email, password, role } = req.body;
+    const { email, password, } = req.body;
 
     // Basic validation
     if (!email || !password) {
@@ -24,7 +24,7 @@ router.post('/register', async (req, res) => {
     }
 
     // Create new user (password will be hashed by pre-save hook)
-    const user = new User({ email, password, role: role || 'user' });
+    const user = new User({ email, password, role: 'user' });
     await user.save();
 
     // Don't send password back
