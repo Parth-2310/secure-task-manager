@@ -11,6 +11,7 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Register form submitted');
     setError('');
     try {
       await register(email, password);

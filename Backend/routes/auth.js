@@ -90,4 +90,12 @@ router.get('/admin/users', authMiddleware, adminMiddleware, async (req, res) => 
   }
 });
 
+router.post('/logout', (req, res) => {
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict'
+  });
+  res.json({ message: 'Logout successful' });
+});
 module.exports = router;
