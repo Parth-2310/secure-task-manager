@@ -54,4 +54,31 @@ router.delete('/:taskId', authMiddleware, async (req, res) => {
   }
 });
 
+router.put('/:taskId', authMiddleware, async (req, res) => {
+  try {
+    const { title, description, completed } = req.body; 
+    const taskId = req.params.taskId;
+
+    const updateData = {};
+    if (title !== undefined) updateData.title = title.trim();
+    if (description !== undefined) updateData.description = description.trim();
+    if (completed !== undefined) updateData.completed = completed;
+
+    const task  = await Task.findOneAndUpdate(
+      { _id: taskId, user: req.user.id },
+      updateData,
+      { new: true ,runValidators: true}
+    );
+
+     if (!task) {
+      return res.status(404).json({ error: 'Task not found or not yours' });
+    }
+
+    res.json(task);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 module.exports = router;
