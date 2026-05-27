@@ -110,7 +110,8 @@ function Dashboard() {
           ): (
             <ul className="divide-y divide-gray-200">
               {tasks.map((task) => (
-                <li key={task._id} className="p-6 hover:bg-gray-50 transition">
+                <li key={task._id} className="p-6 hover:bg-gray-50 transition" 
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div className="flex justify-between items-start">
                     <div>
                       <h3 className="text-lg font-medium text-gray-800">
@@ -120,6 +121,7 @@ function Dashboard() {
                         <p className="text-gray-600 mt-1">{task.description}</p>
                       )}
                     </div>
+                    <button onClick={() => console.log('Edit task:', task._id)}>Edit</button>
                     <button
                       onClick={() => handleDelete(task._id)}
                       className="bg-red-100 hover:bg-red-200 text-red-700 px-3 py-1 rounded-md transition text-sm"
