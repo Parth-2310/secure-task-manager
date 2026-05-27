@@ -78,6 +78,8 @@ function Dashboard() {
               placeholder = "Task Title"
               value = {title}
               onChange ={(e) => setTitle(e.target.value)}
+              className="w-full px-3 py-2 border border-
+              gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               required
               />
             </div>
@@ -121,7 +123,10 @@ function Dashboard() {
                         <p className="text-gray-600 mt-1">{task.description}</p>
                       )}
                     </div>
-                    <button onClick={() => console.log('Edit task:', task._id)}>Edit</button>
+                    <button onClick={() => console.log('Edit task:', task._id)}
+                    className="bg-blue-500 text-white px-2 py-1 rounded">
+                    Edit
+                    </button>
                     <button
                       onClick={() => handleDelete(task._id)}
                       className="bg-red-100 hover:bg-red-200 text-red-700 px-3 py-1 rounded-md transition text-sm"
