@@ -13,10 +13,17 @@ export const AuthProvider = ({ children }) => {
 
 
   const login = async (email, password) => {
+  console.log('Axios login called with:', email);
+  try {
     const response = await api.post('/auth/login', { email, password });
+    console.log('Axios response:', response);
     setUser(response.data.user);
     return response.data;
-  };
+  } catch (err) {
+    console.error('Axios error:', err);
+    throw err;
+  }
+};
 
   
   const register = async (email, password, role = 'user') => {

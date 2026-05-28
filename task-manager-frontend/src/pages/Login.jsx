@@ -11,10 +11,10 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('handleSubmit is running');
         setError('');
         try {
             await login(email, password);
-            console.log('Login successful, about to navigate to dashboard');
             navigate('/dashboard');
         } catch (err) {
         const message = err.response?.data?.message || 'Login failed';
