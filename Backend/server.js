@@ -12,6 +12,25 @@ const app = express();
 app.use(helmet());
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());  
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    }
+    else if (origin && /^https?:\/\/[a-zA-Z0-9-]+\.vercel\.app$/.test(origin)) {
+      callback(null, true);
+    }
+    else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  optionsSuccessStatus: 200 // For legacy browser support
+};
+
+app.use(cors(corsOptions));
+
 app.use(rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -24,6 +43,7 @@ const allowedOrigins = [
   'http://127.0.0.1:5173',
   'https://secure-task-manager-rouge.vercel.app'
 ];
+
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -55,24 +75,6 @@ app.use('/api/tasks', taskRoutes);
 
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    }
-    else if (origin && /^https?:\/\/[a-zA-Z0-9-]+\.vercel\.app$/.test(origin)) {
-      callback(null, true);
-    }
-    else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-  optionsSuccessStatus: 200 // For legacy browser support
-};
-
-app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 5000;
 
