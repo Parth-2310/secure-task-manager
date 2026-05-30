@@ -7,6 +7,7 @@ console.log('AuthProvider rendered');
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+
   useEffect(() => {
   console.log('AuthProvider user changed to:', user);
   }, [user]);

@@ -3,6 +3,10 @@
     {
       "source": "/api/(.*)",
       "destination": "https://secure-task-manager-nyix.onrender.com/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }

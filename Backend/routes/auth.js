@@ -100,4 +100,8 @@ router.post('/logout', (req, res) => {
   });
   res.json({ message: 'Logout successful' });
 });
+
+// GET /api/auth/me
+// Verifies the HTTP-only cookie and restores the user session on page refresh
+
 module.exports = router;
