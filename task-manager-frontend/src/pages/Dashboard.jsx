@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import { Link } from 'react-router-dom'
 
 function Dashboard() {
     const { user, logout } = useAuth();
@@ -57,10 +58,16 @@ function Dashboard() {
             <div className="max-w-4xl mx-auto p-6">
                 {/* Header Section */}
                 <div className="flex justify-between 
-                items-center bg-white p-4 rounded-lg shadow mb-6">
+                    items-center bg-white p-4 rounded-lg shadow mb-6">
                     <h1 className="text-2xl font-bold text-gray-800">
                         Welcome, {user?.email}!
                     </h1>
+                    <div>
+                    {user?.role === 'admin' && (
+                    <Link to="/admin/users" className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md transition mr-2">
+                    Admin Dashboard
+                    </Link>
+                    )}
                     <button
                         onClick={handleLogout}
                         className="bg-red-500 hover:bg-red-600 
@@ -68,6 +75,7 @@ function Dashboard() {
                     >
                         Logout
                     </button>
+                    </div>
                 </div>
 
                 {/* Task Creation Form */}
