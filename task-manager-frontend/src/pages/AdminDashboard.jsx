@@ -3,6 +3,7 @@ import api from "../services/api";
 import { useAuth } from "../context/AuthContext";
 
 function AdminDashboard(){
+    const { user } = useAuth();
     const [users,setUsers] = useState([]);
     const [loading,setLoading] = useState(true);
 
@@ -24,7 +25,7 @@ function AdminDashboard(){
         return <div className="p-6">Loading users...</div>;
     }
 
-    const { user } = useAuth();
+
     return(
         <div className="p-6 max-w-4xl mx-auto">
             <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>

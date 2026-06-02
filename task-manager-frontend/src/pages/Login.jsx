@@ -1,8 +1,10 @@
 import {useState} from 'react';
+import { useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
+    const { user, loading } = useAuth();
     const navigate = useNavigate();
     const {login} = useAuth();
     const [email, setEmail] = useState('');
@@ -21,6 +23,12 @@ function Login() {
         setError(message);
         }
     };
+
+    useEffect(() => {
+        if (!loading && user) {
+            navigate('/dashboard');
+        }   
+    }, [user, loading, navigate]);
     
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
