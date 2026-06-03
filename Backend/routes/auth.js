@@ -4,6 +4,17 @@ const User = require('../models/User');
 const adminMiddleware = require('../middleware/admin');
 const authMiddleware = require('../middleware/auth');
 
+
+router.get('/admin/users', authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const users = await User.find({}).select('-password');
+    res.json(users);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // POST /api/auth/register
 router.post('/register', async (req, res) => {
   try {
@@ -81,16 +92,7 @@ router.post('/login', async (req, res) => {
 });
 
 
-router.get('/admin/users', authMiddleware, adminMiddleware, async (req, res) => {
-  try {
-    const User = require('../models/User');
-    const users = await User.find({}).select('-password');
-    res.json(users);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
+
 
 router.post('/logout', (req, res) => {
   res.clearCookie('token', {

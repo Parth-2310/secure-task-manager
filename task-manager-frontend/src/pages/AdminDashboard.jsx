@@ -1,6 +1,7 @@
 import { useEffect,useState } from "react";
 import api from "../services/api";
 import { useAuth } from "../context/AuthContext";
+import { Link } from 'react-router-dom';
 
 function AdminDashboard(){
     const { user } = useAuth();
@@ -31,6 +32,9 @@ function AdminDashboard(){
             <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
             <p className="mb-4">Logged in as: <strong>{user?.email}</strong> (Admin)</p>
             <h2 className="text-xl font-semibold mb-2">All Registered Users</h2>
+            <Link to="/dashboard" className="inline-block mb-4 text-blue-600 hover:underline">
+          ← Back to Dashboard
+            </Link>
             <ul className="border rounded divide-y">
                 
             </ul>
