@@ -36,7 +36,12 @@ function AdminDashboard(){
           ← Back to Dashboard
             </Link>
             <ul className="border rounded divide-y">
-                
+                {users.map(u => (
+                <li key={u._id} className="p-3 flex justify-between">
+                <span>{u.email}</span>
+                <span className="text-sm bg-gray-100 px-2 py-1 rounded">Role: {u.role}</span>
+                </li>
+                ))}
             </ul>
         </div>
     );
