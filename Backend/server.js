@@ -13,6 +13,12 @@ app.use(helmet());
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());  
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'https://secure-task-manager-rouge.vercel.app'
+];
+
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -38,11 +44,7 @@ app.use(rateLimit({
 }));
 app.use(morgan('dev'));
 
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://127.0.0.1:5173',
-  'https://secure-task-manager-rouge.vercel.app'
-];
+
 
 
 app.use(cors({
